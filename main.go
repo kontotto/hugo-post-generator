@@ -1,24 +1,29 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
-	"os"
-
-	"github.com/urfave/cli"
 )
 
-func main() {
-	app := cli.NewApp()
-	app.Name = "hugo-post-generator"
-	app.Usage = "generate the post"
-	app.Action = func(c *cli.Context) error {
-		fmt.Println("Hello friend!")
-		return nil
-	}
+type Metadata struct {
+	Categories  []string `json:"categories"`
+	Description string   `json:"description"`
+	Tags        []string `json:"tags"`
+	Url         string   `json:"url"`
+}
 
-	err := app.Run(os.Args)
+func main() {
+	bytes, err := ioutil.ReadFile("movies/20181120/metadata.json")
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	var metadata Metadata
+	if err := json.Unmarshal(bytes, &metadata); err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("%v", metadata)
 }
