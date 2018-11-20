@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 )
 
 type Metadata struct {
@@ -14,16 +13,19 @@ type Metadata struct {
 	Url         string   `json:"url"`
 }
 
-func main() {
-	bytes, err := ioutil.ReadFile("movies/20181120/metadata.json")
+func OpenMetadata(path string) (*Metadata, error) {
+	bytes, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	var metadata Metadata
+	metadata := &Metadata{}
 	if err := json.Unmarshal(bytes, &metadata); err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
+	return metadata, nil
+}
 
-	fmt.Println("%v", metadata)
+func main() {
+	fmt.Println("Hello World")
 }
