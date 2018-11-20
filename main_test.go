@@ -17,3 +17,10 @@ func TestOpenMetadataFailed(t *testing.T) {
 		t.Fatal("failed test")
 	}
 }
+
+func TestOpenTemplateSuccess(t *testing.T) {
+	_, err := OpenTemplate("tests/testdata/templates/movie.tmpl")
+	if err != nil {
+		t.Fatal("failed test")
+	}
+}
