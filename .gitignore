@@ -1,3 +1,6 @@
+outputs/*
+!.gitkeep
+
 # Binary for default
 hugo-post-generator
 
