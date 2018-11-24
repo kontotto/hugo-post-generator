@@ -27,6 +27,16 @@ func BuildTemplate() (*Template, error) {
 	return t, nil
 }
 
+// sm12345678.md.tmpl
+func BuildCategory(filename string) (string, error) {
+	r := regexp.MustCompile(`^sm[0-9]{1,8}`)
+	if !r.MatchString(filename) {
+		return "", fmt.Errorf("%s is unmatched", filename)
+	}
+
+	return "niconico", nil
+}
+
 // 2000-01-01 ~ 2029-12-31
 // TODO: more correctly
 func BuildPostTime(date string) (string, error) {

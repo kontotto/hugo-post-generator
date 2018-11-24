@@ -15,6 +15,19 @@ func TestOpenTemplateSuccess(t *testing.T) {
 	}
 }
 
+func TestBuildCategory(t *testing.T) {
+	want := "niconico"
+	got, err := BuildCategory("sm12345678.md.tmpl")
+
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if want != got {
+		t.Fatalf("want = %s, got = %s", want, got)
+	}
+}
+
 func TestBuildPostTimeSuccess(t *testing.T) {
 	want := "2010-01-01T19:00:00Z"
 	got, err := BuildPostTime("2010-01-01")
