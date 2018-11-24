@@ -15,7 +15,7 @@ func TestOpenTemplateSuccess(t *testing.T) {
 	}
 }
 
-func TestBuildCategory(t *testing.T) {
+func TestBuildCategorySuccess(t *testing.T) {
 	want := "niconico"
 	got, err := BuildCategory("sm12345678.md.tmpl")
 
