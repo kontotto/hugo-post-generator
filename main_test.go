@@ -5,7 +5,7 @@ import (
 )
 
 func TestOpenTemplateSuccess(t *testing.T) {
-	tmpl := OpenTemplate("tests/movies/20100101/sm12345678.md.tmpl")
+	tmpl := OpenTemplate("tests/movies/2010-01-01/sm12345678.md.tmpl")
 
 	want := "sm12345678.md.tmpl"
 	got := tmpl.Name()
