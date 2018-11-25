@@ -1,6 +1,7 @@
 package main
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -20,11 +21,17 @@ func TestGetIdSuccess(t *testing.T) {
 }
 
 func TestNewMetaSuccess(t *testing.T) {
-	want := &Meta{
-		Date: "2010-01-01",
-		Id:   "sm12345678",
+	abspath, err := filepath.Abs("./tests")
+	if err != nil {
+		t.Fatal(err)
 	}
-	got, err := NewMeta("2010-01-01", "sm12345678.md.tmpl")
+
+	want := &Meta{
+		Date:     "2010-01-01",
+		Id:       "sm12345678",
+		HugoPath: abspath,
+	}
+	got, err := NewMeta("2010-01-01", "sm12345678.md.tmpl", "./tests")
 
 	if err != nil {
 		t.Fatal(err)

@@ -17,7 +17,7 @@ func (p *niconicoProvider) Category() string {
 }
 
 func (p *niconicoProvider) Date() string {
-	return ""
+	return p.Meta.Date
 }
 
 func (p *niconicoProvider) Thumbnail() string {

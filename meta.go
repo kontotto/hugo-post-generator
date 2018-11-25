@@ -2,24 +2,32 @@ package main
 
 import (
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 )
 
 type Meta struct {
-	Date string
-	Id   string
+	Date     string
+	Id       string
+	HugoPath string
 }
 
-func NewMeta(date string, filename string) (*Meta, error) {
+func NewMeta(date string, filename string, hugopath string) (*Meta, error) {
 	id, err := getId(filename)
 	if err != nil {
 		return nil, err
 	}
 
+	abspath, err := filepath.Abs(hugopath)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Meta{
-		Date: date,
-		Id:   id,
+		Date:     date,
+		Id:       id,
+		HugoPath: abspath,
 	}, nil
 }
 

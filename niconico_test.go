@@ -6,18 +6,22 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func create() MovieProvider {
-	meta := &Meta{
-		Date: "2010-01-01",
-		Id:   "sm12345678",
+func create() (MovieProvider, error) {
+	meta, err := NewMeta("2010-01-01", "sm22222222.md.tmpl", "./tests")
+	if err != nil {
+		return nil, err
 	}
+
 	return &niconicoProvider{
 		Meta: meta,
-	}
+	}, nil
 }
 
 func TestNiconicoCategory(t *testing.T) {
-	provider := create()
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	want := "niconico"
 	got := provider.Category()
@@ -25,4 +29,22 @@ func TestNiconicoCategory(t *testing.T) {
 	if !cmp.Equal(want, got) {
 		t.Fatalf("want %+v, got %+v", want, got)
 	}
+}
+
+func TestNiconicoDate(t *testing.T) {
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := "2010-01-01"
+	got := provider.Date()
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
+func TestNiconicoThumbnail(t *testing.T) {
+
 }

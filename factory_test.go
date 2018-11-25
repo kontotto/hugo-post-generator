@@ -7,9 +7,9 @@ import (
 )
 
 func TestNewFactoryNiconico(t *testing.T) {
-	meta := &Meta{
-		Date: "2010-01-01",
-		Id:   "sm12345678",
+	meta, err := NewMeta("2010-01-01", "sm12345678.md.tmpl", "./tests")
+	if err != nil {
+		t.Fatal(err)
 	}
 
 	want := &niconicoFactory{
