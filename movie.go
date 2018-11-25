@@ -1,9 +1,5 @@
 package main
 
-import (
-	"text/template"
-)
-
 type MoviePorivder interface {
 	Provider
 	Category() string
