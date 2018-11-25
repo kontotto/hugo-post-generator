@@ -19,6 +19,34 @@ func create() (MovieProvider, error) {
 	}, nil
 }
 
+func TestNiconicoData(t *testing.T) {
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	abspath, err := filepath.Abs("./tests/static/images/sm22222222.jpg")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := &MovieData{
+		Category:  "niconico",
+		Date:      "2010-01-01",
+		Thumbnail: abspath,
+		Title:     "",
+		Embed:     "",
+	}
+	got, err := provider.Data()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
 func TestNiconicoCategory(t *testing.T) {
 	provider, err := create()
 	if err != nil {

@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-	"text/template"
 )
 
 const imageUrl = "http://tn-skr3.smilevideo.jp/smile?i="
@@ -17,8 +16,19 @@ type niconicoProvider struct {
 	Meta *Meta
 }
 
-func (p *niconicoProvider) Template() *template.Template {
-	return nil
+func (p *niconicoProvider) Data() (interface{}, error) {
+	thumbnail, err := p.Thumbnail()
+	if err != nil {
+		return nil, err
+	}
+
+	return &MovieData{
+		Category:  p.Category(),
+		Date:      p.Date(),
+		Thumbnail: thumbnail,
+		Title:     p.Title(),
+		Embed:     p.Embed(),
+	}, nil
 }
 
 func (p *niconicoProvider) Category() string {

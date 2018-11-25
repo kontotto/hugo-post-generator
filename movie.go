@@ -8,3 +8,11 @@ type MovieProvider interface {
 	Title() string
 	Embed() string
 }
+
+type MovieData struct {
+	Category  string
+	Date      string
+	Thumbnail string
+	Title     string
+	Embed     string
+}
