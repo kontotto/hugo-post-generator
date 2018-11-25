@@ -1,6 +1,6 @@
 package main
 
-type MoviePorivder interface {
+type MovieProvider interface {
 	Provider
 	Category() string
 	Date() string
