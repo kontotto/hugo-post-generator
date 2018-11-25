@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -46,5 +48,46 @@ func TestNiconicoDate(t *testing.T) {
 }
 
 func TestNiconicoThumbnail(t *testing.T) {
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
 
+	abspath, err := filepath.Abs("./tests/static/images/sm22222222.jpg")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := abspath
+	got, err := provider.Thumbnail()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if err := os.Remove("./tests/static/images/sm22222222.jpg"); err != nil {
+		t.Fatal(err)
+	}
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
+func TestIdExceptPrefixSuccess(t *testing.T) {
+	want := "22222222"
+	got, err := idExceptPrefix("sm22222222")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
+func TestIdExceptPrefixFail(t *testing.T) {
+	_, err := idExceptPrefix("ssm22222222")
+	if err == nil {
+		t.Fatal()
+	}
 }
