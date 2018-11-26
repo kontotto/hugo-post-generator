@@ -15,7 +15,7 @@ import (
 const imageUrl = "http://tn-skr3.smilevideo.jp/smile?i="
 
 type niconicoProvider struct {
-	Meta *Meta
+	*Meta
 }
 
 func (p *niconicoProvider) Data() (interface{}, error) {
@@ -48,16 +48,16 @@ func (p *niconicoProvider) Category() string {
 }
 
 func (p *niconicoProvider) Date() string {
-	return p.Meta.Date
+	return p.Time
 }
 
 func (p *niconicoProvider) Thumbnail() (string, error) {
-	numberId, err := idExceptPrefix(p.Meta.Id)
+	numberId, err := idExceptPrefix(p.Id)
 	if err != nil {
 		return "", err
 	}
 	jpgUrl := imageUrl + numberId + ".L"
-	storePath := "./tests/static/images/" + p.Meta.Id + ".jpg"
+	storePath := "./tests/static/images/" + p.Id + ".jpg"
 
 	jpg, err := os.Create(storePath)
 	if err != nil {
@@ -85,7 +85,7 @@ func (p *niconicoProvider) Thumbnail() (string, error) {
 }
 
 func (p *niconicoProvider) Title() (string, error) {
-	doc, err := goquery.NewDocument("https://www.nicovideo.jp/watch/" + p.Meta.Id)
+	doc, err := goquery.NewDocument("https://www.nicovideo.jp/watch/" + p.Id)
 	if err != nil {
 		return "", err
 	}
@@ -99,7 +99,7 @@ func (p *niconicoProvider) Embed() (string, error) {
 		return "", err
 	}
 
-	return `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/` + p.Meta.Id + `/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/` + p.Meta.Id + `">` + title + `</a></noscript>`, nil
+	return `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/` + p.Id + `/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/` + p.Id + `">` + title + `</a></noscript>`, nil
 }
 
 func idExceptPrefix(id string) (string, error) {

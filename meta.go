@@ -8,12 +8,17 @@ import (
 )
 
 type Meta struct {
-	Date     string
+	Time     string
 	Id       string
 	HugoPath string
 }
 
 func NewMeta(date string, filename string, hugopath string) (*Meta, error) {
+	time, err := getTime(date)
+	if err != nil {
+		return nil, err
+	}
+
 	id, err := getId(filename)
 	if err != nil {
 		return nil, err
@@ -25,10 +30,19 @@ func NewMeta(date string, filename string, hugopath string) (*Meta, error) {
 	}
 
 	return &Meta{
-		Date:     date,
+		Time:     time,
 		Id:       id,
 		HugoPath: abspath,
 	}, nil
+}
+
+func getTime(date string) (string, error) {
+	r := regexp.MustCompile(`^20[0-2][0-9]-[0|1][0-9]-[0-3][0-9]$`)
+	if !r.MatchString(date) {
+		return "", fmt.Errorf("%s is unmatched", date)
+	}
+
+	return date + "T19:00:00Z", nil
 }
 
 func getId(filename string) (string, error) {

@@ -32,7 +32,7 @@ func TestNiconicoData(t *testing.T) {
 
 	want := &MovieData{
 		Category:  "niconico",
-		Date:      "2010-01-01",
+		Date:      "2010-01-01T19:00:00Z",
 		Thumbnail: abspath,
 		Title:     "ある日の鎌倉の風景 - ニコニコ動画",
 		Embed:     `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm22222222/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/sm22222222">ある日の鎌倉の風景 - ニコニコ動画</a></noscript>`,
@@ -67,7 +67,7 @@ func TestNiconicoDate(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	want := "2010-01-01"
+	want := "2010-01-01T19:00:00Z"
 	got := provider.Date()
 
 	if !cmp.Equal(want, got) {

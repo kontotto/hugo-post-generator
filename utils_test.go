@@ -10,7 +10,7 @@ func TestGetTemplatePaths(t *testing.T) {
 	want := []DateFile{
 		DateFile{
 			Date:     "2010-01-01",
-			Filename: "sm12345678.md.tmpl",
+			Filename: "sm22222222.md.tmpl",
 		},
 	}
 	got, err := GetTemplatePaths("./tests/movies/")
@@ -28,7 +28,7 @@ func TestOpenTemplates(t *testing.T) {
 		MetaTemplate{
 			DateFile: DateFile{
 				Date:     "2010-01-01",
-				Filename: "sm12345678.md.tmpl",
+				Filename: "sm22222222.md.tmpl",
 			},
 			// TODO: correct test
 			Template: nil,

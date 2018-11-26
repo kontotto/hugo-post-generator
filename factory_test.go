@@ -7,7 +7,7 @@ import (
 )
 
 func TestNewFactoryNiconico(t *testing.T) {
-	meta, err := NewMeta("2010-01-01", "sm12345678.md.tmpl", "./tests")
+	meta, err := NewMeta("2010-01-01", "sm22222222.md.tmpl", "./tests")
 	if err != nil {
 		t.Fatal(err)
 	}
