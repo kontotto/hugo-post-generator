@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 const imageUrl = "http://tn-skr3.smilevideo.jp/smile?i="
@@ -22,11 +24,16 @@ func (p *niconicoProvider) Data() (interface{}, error) {
 		return nil, err
 	}
 
+	title, err := p.Title()
+	if err != nil {
+		return nil, err
+	}
+
 	return &MovieData{
 		Category:  p.Category(),
 		Date:      p.Date(),
 		Thumbnail: thumbnail,
-		Title:     p.Title(),
+		Title:     title,
 		Embed:     p.Embed(),
 	}, nil
 }
@@ -72,8 +79,13 @@ func (p *niconicoProvider) Thumbnail() (string, error) {
 	return abspath, nil
 }
 
-func (p *niconicoProvider) Title() string {
-	return ""
+func (p *niconicoProvider) Title() (string, error) {
+	doc, err := goquery.NewDocument("https://www.nicovideo.jp/watch/" + p.Meta.Id)
+	if err != nil {
+		return "", err
+	}
+
+	return doc.Find("title").First().Text(), nil
 }
 
 func (p *niconicoProvider) Embed() string {

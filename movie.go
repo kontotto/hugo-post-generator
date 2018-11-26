@@ -5,7 +5,7 @@ type MovieProvider interface {
 	Category() string
 	Date() string
 	Thumbnail() (string, error)
-	Title() string
+	Title() (string, error)
 	Embed() string
 }
 

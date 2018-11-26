@@ -34,7 +34,7 @@ func TestNiconicoData(t *testing.T) {
 		Category:  "niconico",
 		Date:      "2010-01-01",
 		Thumbnail: abspath,
-		Title:     "",
+		Title:     "ある日の鎌倉の風景 - ニコニコ動画",
 		Embed:     "",
 	}
 	got, err := provider.Data()
@@ -93,6 +93,23 @@ func TestNiconicoThumbnail(t *testing.T) {
 	}
 
 	if err := os.Remove("./tests/static/images/sm22222222.jpg"); err != nil {
+		t.Fatal(err)
+	}
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
+func TestNiconicoTitle(t *testing.T) {
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := "ある日の鎌倉の風景 - ニコニコ動画"
+	got, err := provider.Title()
+	if err != nil {
 		t.Fatal(err)
 	}
 

@@ -6,8 +6,6 @@ import (
 	"os"
 	"regexp"
 	"text/template"
-
-	"github.com/PuerkitoBio/goquery"
 )
 
 type Template struct {
@@ -48,15 +46,6 @@ func BuildPostTime(date string) (string, error) {
 	}
 
 	return date + "T19:00:00Z", nil
-}
-
-func BuildTitle(movieId string) (string, error) {
-	doc, err := goquery.NewDocument("https://www.nicovideo.jp/watch/" + movieId)
-	if err != nil {
-		return "", err
-	}
-
-	return doc.Find("title").First().Text(), nil
 }
 
 func OpenTemplate(path string) *template.Template {
