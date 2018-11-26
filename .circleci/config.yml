@@ -18,7 +18,7 @@ jobs:
       - run: go get github.com/jstemmer/go-junit-report
 
       # specify any bash command here prefixed with `run: `
-      - run: go test -v
+      - run:
           name: Run unit tests
           environment:
             CONTACTS_DB_URL: "postgres://circleci-demo-go@localhost:5432/circle_test?sslmode=disable"
