@@ -57,7 +57,7 @@ func (p *niconicoProvider) Thumbnail() (string, error) {
 		return "", err
 	}
 	jpgUrl := imageUrl + numberId + ".L"
-	storePath := "./tests/static/images/" + p.Id + ".jpg"
+	storePath := p.HugoPath + "/static/images/" + p.Id + ".jpg"
 
 	jpg, err := os.Create(storePath)
 	if err != nil {
