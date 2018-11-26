@@ -35,7 +35,7 @@ func TestNiconicoData(t *testing.T) {
 		Date:      "2010-01-01",
 		Thumbnail: abspath,
 		Title:     "ある日の鎌倉の風景 - ニコニコ動画",
-		Embed:     "",
+		Embed:     `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm22222222/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/sm22222222">ある日の鎌倉の風景 - ニコニコ動画</a></noscript>`,
 	}
 	got, err := provider.Data()
 	if err != nil {
@@ -109,6 +109,23 @@ func TestNiconicoTitle(t *testing.T) {
 
 	want := "ある日の鎌倉の風景 - ニコニコ動画"
 	got, err := provider.Title()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !cmp.Equal(want, got) {
+		t.Fatalf("want %+v, got %+v", want, got)
+	}
+}
+
+func TestNiconicoEmbed(t *testing.T) {
+	provider, err := create()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/sm22222222/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/sm22222222">ある日の鎌倉の風景 - ニコニコ動画</a></noscript>`
+	got, err := provider.Embed()
 	if err != nil {
 		t.Fatal(err)
 	}

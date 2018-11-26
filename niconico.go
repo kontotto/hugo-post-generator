@@ -29,12 +29,17 @@ func (p *niconicoProvider) Data() (interface{}, error) {
 		return nil, err
 	}
 
+	embed, err := p.Embed()
+	if err != nil {
+		return nil, err
+	}
+
 	return &MovieData{
 		Category:  p.Category(),
 		Date:      p.Date(),
 		Thumbnail: thumbnail,
 		Title:     title,
-		Embed:     p.Embed(),
+		Embed:     embed,
 	}, nil
 }
 
@@ -88,8 +93,13 @@ func (p *niconicoProvider) Title() (string, error) {
 	return doc.Find("title").First().Text(), nil
 }
 
-func (p *niconicoProvider) Embed() string {
-	return ""
+func (p *niconicoProvider) Embed() (string, error) {
+	title, err := p.Title()
+	if err != nil {
+		return "", err
+	}
+
+	return `<script type="application/javascript" src="https://embed.nicovideo.jp/watch/` + p.Meta.Id + `/script?w=720&h=480"></script><noscript><a href="https://www.nicovideo.jp/watch/` + p.Meta.Id + `">` + title + `</a></noscript>`, nil
 }
 
 func idExceptPrefix(id string) (string, error) {

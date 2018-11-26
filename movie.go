@@ -6,7 +6,7 @@ type MovieProvider interface {
 	Date() string
 	Thumbnail() (string, error)
 	Title() (string, error)
-	Embed() string
+	Embed() (string, error)
 }
 
 type MovieData struct {
