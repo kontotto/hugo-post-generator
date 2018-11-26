@@ -2,6 +2,9 @@ outputs/*
 !.gitkeep
 *.swp
 
+# Test
+tests/static/images/*
+
 # Binary for default
 hugo-post-generator
 

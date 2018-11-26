@@ -15,5 +15,7 @@ type niconicoFactory struct {
 }
 
 func (f *niconicoFactory) CreateProvider() (Provider, error) {
-	return nil, nil
+	return &niconicoProvider{
+		Meta: f.Meta,
+	}, nil
 }
