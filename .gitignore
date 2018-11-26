@@ -1,8 +1,8 @@
-outputs/*
 !.gitkeep
 *.swp
 
 # Test
+tests/content/posts/*
 tests/static/images/*
 
 # Binary for default
