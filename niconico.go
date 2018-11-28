@@ -12,8 +12,6 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-const imageUrl = "http://tn-skr3.smilevideo.jp/smile?i="
-
 type niconicoProvider struct {
 	*Meta
 }
@@ -56,7 +54,7 @@ func (p *niconicoProvider) Thumbnail() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	jpgUrl := imageUrl + numberId + ".L"
+	jpgUrl := "http://tn-skr3.smilevideo.jp/smile?i=" + numberId + ".L"
 	storePath := p.HugoPath + "/static/images/" + p.Id + ".jpg"
 
 	jpg, err := os.Create(storePath)
